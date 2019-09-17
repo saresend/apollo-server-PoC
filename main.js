@@ -27,6 +27,30 @@ const user_data = [
       }
     }
 ]; 
+
+const event_data = [
+	{
+		name: 'Welcome to my Ted Talk', 
+		room: 342, 
+		presenter: user_data[0], 
+		start: 12, 
+		end: 13,
+	},
+	{
+		name: 'Underwater basketweaving for dummies', 
+		room: 222, 
+		presenter: user_data[1],
+		start: 14,
+		end: 16,
+	}, 
+	{
+		name: 'The history and origins of Squid', 
+		room: 124, 
+		presenter: user_data[2], 
+		start: 8,
+		end: 9,
+	},
+]
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
 	type Name {
@@ -38,15 +62,24 @@ const typeDefs = gql`
 		age: Int, 
 		name: Name, 
 	}
+	type Event {
+		name: String, 
+		room: Int, 
+		presenter: User, 
+		start: Int, 
+		end: Int,
+	}
   type Query {
     hello: String
 		users: [User],
+		events: [Event],
   }
 `;
 
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
+		events: () => event_data,
 		users: () => user_data,		
     hello: () => 'Hello world!',
   },
