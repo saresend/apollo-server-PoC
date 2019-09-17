@@ -73,6 +73,7 @@ const typeDefs = gql`
     hello: String
 		users: [User],
 		events: [Event],
+		serverSource: String,
   }
 `;
 
@@ -82,6 +83,7 @@ const resolvers = {
 		events: () => event_data,
 		users: () => user_data,		
     hello: () => 'Hello world!',
+		serverSource: () => 'https://github.com/saresend/apollo-server-PoC',
   },
 };
 
@@ -90,6 +92,6 @@ const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
 server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () =>
+app.listen({ host: '0.0.0.0', port: 4000 }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
