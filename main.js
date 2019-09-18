@@ -48,14 +48,14 @@ const resolvers = {
 		}
 	}
 };
-/*
-const DB_URL = 'dev-hacksc-odyssey.c4ukl2tqzuiz.us-west-1.rds.amazonaws.com:3306';
-var sequelize = new Sequelize('mysql://devHackSC:${bobby_DROP_table}@' + DB_URL);
-*/
-const server = new ApolloServer({ typeDefs, resolvers });
-/*
-const User = sequelize.define('user', {
+const PASSWORD = process.env.SQL_PASSWORD;
 
+const DB_URL = 'dev-hacksc-odyssey.c4ukl2tqzuiz.us-west-1.rds.amazonaws.com:3306/testsam';
+var sequelize = new Sequelize('mysql://devHackSC:' + PASSWORD + '@' + DB_URL);
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+const User = sequelize.define('user', {
     age : {
         type: Sequelize.INTEGER, 
         allowNull: false,
@@ -86,7 +86,7 @@ sequelize.authenticate().then(() => {
 }).catch(err => {
 	console.log('failed because ' + err);
 })
-*/
+
 const app = express();
 server.applyMiddleware({ app });
 
