@@ -101,6 +101,33 @@ const resolvers = {
 const sequelize = new Sequelize('postgres://localhost:5432/template1');
 const server = new ApolloServer({ typeDefs, resolvers });
 
+const User = sequelize.define('user', {
+
+    age : {
+        type: Sequelize.INTEGER, 
+        allowNull: false,
+    },
+    picture: {
+        type: Sequelize.STRING, 
+        allowNull: false,
+    },
+    firstName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    lastName: {
+        type: Sequelize.STRING, 
+        allowNull: false, 
+    }
+});
+User.sync({ force: true }).then(() => {
+    return User.create({
+        age: 10, 
+        picture: 'null', 
+        firstName: 'Stiven', 
+        lastName: 'No',
+    });
+});
 sequelize.authenticate().then(() => {
 	console.log('Successfully Authenticated to database')
 }).catch(err => {
