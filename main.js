@@ -103,6 +103,33 @@ const DB_URL = 'dev-hacksc-odyssey.c4ukl2tqzuiz.us-west-1.rds.amazonaws.com:3306
 var sequelize = new Sequelize('mysql://devHackSC:${bobby_DROP_table}@' + DB_URL);
 const server = new ApolloServer({ typeDefs, resolvers });
 
+const User = sequelize.define('user', {
+
+    age : {
+        type: Sequelize.INTEGER, 
+        allowNull: false,
+    },
+    picture: {
+        type: Sequelize.STRING, 
+        allowNull: false,
+    },
+    firstName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    lastName: {
+        type: Sequelize.STRING, 
+        allowNull: false, 
+    }
+});
+User.sync({ force: true }).then(() => {
+    return User.create({
+        age: 10, 
+        picture: 'null', 
+        firstName: 'Stiven', 
+        lastName: 'No',
+    });
+});
 sequelize.authenticate().then(() => {
 	console.log('Successfully Authenticated to database')
 }).catch(err => {
