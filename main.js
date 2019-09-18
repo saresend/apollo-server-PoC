@@ -51,7 +51,9 @@ const resolvers = {
 const PASSWORD = process.env.SQL_PASSWORD;
 
 const DB_URL = 'dev-hacksc-odyssey.c4ukl2tqzuiz.us-west-1.rds.amazonaws.com:3306/testsam';
-var sequelize = new Sequelize('mysql://devHackSC:' + PASSWORD + '@' + DB_URL);
+const db_auth_string = 'mysql://devHackSC:' + PASSWORD + '@' + DB_URL;
+console.log(db_auth_string);
+var sequelize = new Sequelize(db_auth_string);
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
